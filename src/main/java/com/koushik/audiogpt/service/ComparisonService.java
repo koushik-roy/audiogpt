@@ -1,6 +1,7 @@
 package com.koushik.audiogpt.service;
 
 import com.koushik.audiogpt.dto.ComparisonRequest;
+import com.koushik.audiogpt.dto.ComparisonResponse;
 import com.koushik.audiogpt.prompt.ComparisonPrompt;
 import com.koushik.audiogpt.prompt.PromptProvider;
 import com.koushik.audiogpt.prompt.PromptType;
@@ -15,7 +16,7 @@ public class ComparisonService {
     private final PromptProvider promptProvider;
     private final ChatClient chatClient;
 
-    public String compare(ComparisonRequest request) {
+    public ComparisonResponse compare(ComparisonRequest request) {
 
         ComparisonPrompt prompt = new ComparisonPrompt(
                 request.speaker1(),
@@ -27,10 +28,10 @@ public class ComparisonService {
                 prompt
         );
 
-        String response = chatClient.prompt()
+        ComparisonResponse response = chatClient.prompt()
                 .user(renderedPrompt)
                 .call()
-                .content();
+                .entity(ComparisonResponse.class);
 
         return response;
     }

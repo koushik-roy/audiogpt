@@ -1,6 +1,7 @@
 package com.koushik.audiogpt.service;
 
 import com.koushik.audiogpt.dto.RecommendationRequest;
+import com.koushik.audiogpt.dto.RecommendationResponse;
 import com.koushik.audiogpt.prompt.PromptProvider;
 import com.koushik.audiogpt.prompt.PromptType;
 import com.koushik.audiogpt.prompt.RecommendationPrompt;
@@ -15,8 +16,7 @@ public class RecommendationService {
     private final ChatClient chatClient;
     private final PromptProvider promptProvider;
 
-    //    public RecommendationResponse recommend(RecommendationRequest request) {
-    public String recommend(RecommendationRequest request) {
+    public RecommendationResponse recommend(RecommendationRequest request) {
 
         RecommendationPrompt prompt =
                 new RecommendationPrompt(
@@ -34,13 +34,11 @@ public class RecommendationService {
                         prompt
                 );
 
-        String response = chatClient.prompt()
+        RecommendationResponse response = chatClient.prompt()
                 .user(renderedPrompt)
                 .call()
-                .content();
+                .entity(RecommendationResponse.class);
 
         return response;
     }
 }
-
-//TODO: Map response to RecommendationResponse DTO
