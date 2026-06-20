@@ -35,6 +35,7 @@ public class SpeakerService {
     public List<SpeakerDTO> getSpeakersByBudget(Integer budget) {
         return speakerRepository.findByPriceInrLessThanEqual(budget)
                 .stream()
+                .limit(5)
                 .map(speakerMapper::toDTO)
                 .toList();
     }
