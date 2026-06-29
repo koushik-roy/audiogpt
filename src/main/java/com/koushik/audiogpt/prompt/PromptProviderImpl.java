@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.stringtemplate.v4.ST;
 
 import java.nio.charset.StandardCharsets;
 
@@ -20,9 +21,14 @@ public class PromptProviderImpl implements PromptProvider {
         String templateText = resource.getContentAsString(StandardCharsets.UTF_8);
         PromptTemplate promptTemplate = new PromptTemplate(templateText);
 
-        log.info("Prompt template loaded for {}: {}", promptType, templateText);
+        // using StringTemplate v4
+        ST st = new ST(templateText);
 
-        return promptTemplate.render(promptModel.variables());
+        promptModel.variables().forEach(st::add);
+
+        log.debug("\nPrompt template loaded for {}: {}", promptType, templateText);
+
+        return st.render();
     }
 
 }

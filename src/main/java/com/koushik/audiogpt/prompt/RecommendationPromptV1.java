@@ -1,24 +1,23 @@
 package com.koushik.audiogpt.prompt;
 
+import com.koushik.audiogpt.dto.RankedSpeaker;
+
+import java.util.List;
 import java.util.Map;
 
-public record RecommendationPromptv1(
-        Integer budget,
-        String usage,
+public record RecommendationPromptV1(
         String currentSpeaker,
         String likes,
         String dislikes,
-        String availableSpeakers
+        String rankedSpeakers
 ) implements PromptModel {
     @Override
     public Map<String, Object> variables() {
         return Map.of(
-                "budget", budget,
-                "usage", usage,
                 "currentSpeaker", currentSpeaker,
                 "likes", likes,
                 "dislikes", dislikes,
-                "availableSpeakers", availableSpeakers
+                "rankedSpeakers", rankedSpeakers
         );
     }
 }

@@ -3,7 +3,7 @@ package com.koushik.audiogpt.controller;
 import com.koushik.audiogpt.dto.*;
 import com.koushik.audiogpt.service.ComparisonService;
 import com.koushik.audiogpt.service.RecommendationService;
-import com.koushik.audiogpt.service.RecommendationServiceV1;
+import com.koushik.audiogpt.service.RecommendationEngine;
 import com.koushik.audiogpt.service.SpeakerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class AudiogptController {
     private final ComparisonService comparisonService;
     private final RecommendationService recommendationService;
     private final SpeakerService speakerService;
-    private final RecommendationServiceV1 recommendationServiceV1;
+    private final RecommendationEngine recommendationEngine;
 
     @PostMapping("/recommend")
     public RecommendationResponse recommend(@RequestBody RecommendationRequest request) {

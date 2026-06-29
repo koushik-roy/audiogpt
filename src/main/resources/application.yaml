@@ -10,8 +10,13 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/audiogpt
     username: postgres
-    password: ${DB_PWD}
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+logging:
+  level:
+    root: INFO
+    com.koushik.audiogpt: DEBUG

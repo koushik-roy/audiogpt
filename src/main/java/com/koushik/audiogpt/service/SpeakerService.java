@@ -32,6 +32,14 @@ public class SpeakerService {
                 .map(speakerMapper::toDTO);
     }
 
+    public SpeakerDTO findByModel(String name) {
+        return speakerRepository.findByModelContaining(name)
+                .stream()
+                .map(speakerMapper::toDTO)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Speaker not found: " + name));
+    }
+
     public List<SpeakerDTO> getSpeakersByBudget(Integer budget) {
         return speakerRepository.findByPriceInrLessThanEqual(budget)
                 .stream()
@@ -48,5 +56,13 @@ public class SpeakerService {
                 .stream()
                 .map(ratingMapper::toDTO)
                 .toList();
+    }
+
+    public SpeakerRatingDTO getRatingsForSpeaker(SpeakerDTO candidate) {
+        return ratingRepository.findBySpeakerId(candidate.id())
+                .stream()
+                .map(ratingMapper::toDTO)
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("Rating not found for speaker: " + candidate.model()));
+
     }
 }
