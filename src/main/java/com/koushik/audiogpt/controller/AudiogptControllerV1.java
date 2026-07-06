@@ -1,11 +1,7 @@
 package com.koushik.audiogpt.controller;
 
 import com.koushik.audiogpt.dto.*;
-import com.koushik.audiogpt.entity.SpeakerEmbedding;
-import com.koushik.audiogpt.service.ComparisonEngine;
-import com.koushik.audiogpt.service.EmbeddingIndexer;
-import com.koushik.audiogpt.service.EmbeddingService;
-import com.koushik.audiogpt.service.RecommendationEngine;
+import com.koushik.audiogpt.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +16,7 @@ public class AudiogptControllerV1 {
     private final RecommendationEngine recommendationEngine;
     private final ComparisonEngine comparisonEngine;
     private final EmbeddingIndexer embeddingIndexer;
+    private final SemanticSearchService semanticSearchService;
 
     @PostMapping("/recommendations")
     public ResponseEntity<RecommendationResponse> getRecommendations(@RequestBody RecommendationRequest request) {
@@ -36,8 +33,8 @@ public class AudiogptControllerV1 {
         embeddingIndexer.indexAll();
     }
 
-    @GetMapping("/test-query")
-    public List<String> test() {
-        return embeddingIndexer.testSearch();
+    @GetMapping("/search")
+    public ResponseEntity<List<SpeakerDTO>> search(@RequestParam String query) {
+        return ResponseEntity.ok(semanticSearchService.search(query));
     }
 }
