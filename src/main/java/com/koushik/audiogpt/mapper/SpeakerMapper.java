@@ -1,6 +1,7 @@
 package com.koushik.audiogpt.mapper;
 
 import com.koushik.audiogpt.dto.SpeakerDTO;
+import com.koushik.audiogpt.entity.Speaker;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,5 +19,20 @@ public class SpeakerMapper {
                 speaker.getActive(),
                 speaker.getConnectivity()
         );
+    }
+
+    public Speaker toEntity(SpeakerDTO dto) {
+        return Speaker.builder()
+                .id(dto.id())
+                .brand(dto.brand())
+                .model(dto.model())
+                .priceInr(dto.priceInr())
+                .category(dto.category())
+                .bluetooth(dto.bluetooth())
+                .active(dto.active())
+                .connectivity(dto.connectivity())
+                .description(dto.description())
+                .build();
+
     }
 }

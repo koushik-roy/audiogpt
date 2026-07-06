@@ -1,0 +1,27 @@
+services:
+  database:
+    # Using the pgvector image you needed for the 1536-dimensional vectors
+    image: pgvector/pgvector:0.8.4-pg18-trixie
+    container_name: my-local-pgvector
+
+    # Passing in the exact credentials and fixing the timezone issue at the source
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      TZ: Asia/Kolkata
+
+    # Mapping your local port 5433 to the container's internal 5432
+    ports:
+      - "5433:5432"
+
+    # Creating a persistent volume so your tables survive container restarts
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+    # Ensures the database boots up automatically if Docker restarts
+    restart: unless-stopped
+
+# Declaring the volume referenced above
+volumes:
+  pg_data:

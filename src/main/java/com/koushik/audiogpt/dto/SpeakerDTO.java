@@ -12,4 +12,8 @@ public record SpeakerDTO(
         Boolean active,
         String connectivity
 ) {
+
+    public String createName(String brand, String model) {
+        return brand + model;
+    }
 }

@@ -13,7 +13,7 @@ public class SpeakerMetricsMapper {
                                     int totalScore) {
         return new SpeakerMetrics(
                 speakerDTO.brand(),
-                speakerDTO.name(),
+                speakerDTO.model(),
                 speakerRatingDTO.bassScore(),
                 speakerRatingDTO.highsScore(),
                 speakerRatingDTO.midsScore(),
