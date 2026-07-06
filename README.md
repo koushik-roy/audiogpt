@@ -4,15 +4,15 @@ AudioGPT is a Spring Boot application that recommends and compares speakers usin
 
 ## Features
 
-Built AI-powered speaker recommendation and comparison engines using Spring AI and Ollama.
-Designed a hybrid recommendation pipeline where PostgreSQL performs structured filtering, Java applies business-specific ranking logic, and the LLM focuses solely on generating natural-language explanations.
-Reduced recommendation latency by approximately 67% (90s → 30s) and comparison latency by approximately 41% (37s → 22s) by moving deterministic decision-making from the LLM into the application layer.
-Externalized prompts using a reusable Prompt Provider architecture for maintainability and versioning.
-Implemented semantic search using pgvector and Spring AI VectorStore to retrieve speakers based on meaning rather than keyword matching.
-Built a document indexing pipeline that converts speaker metadata into embeddings for efficient similarity search.
-Designed modular backend components following clean architecture principles, including Recommendation Engine, Comparison Engine, Semantic Search Service, Prompt Provider, and Embedding Indexer.
-Developed RESTful APIs with Spring Boot, Spring Data JPA, and PostgreSQL, using DTOs, mappers, and layered service architecture.
-Leveraged local LLMs through Ollama, enabling fully local inference without dependency on external AI APIs.
+- Built AI-powered speaker recommendation and comparison engines using Spring AI and Ollama.
+- Designed a hybrid recommendation pipeline where PostgreSQL performs structured filtering, Java applies business-specific ranking logic, and the LLM focuses solely on generating natural-language explanations.
+- Reduced recommendation latency by approximately 67% (90s → 30s) and comparison latency by approximately 41% (37s → 22s) by moving deterministic decision-making from the LLM into the application layer.
+- Externalized prompts using a reusable Prompt Provider architecture for maintainability and versioning.
+- Implemented semantic search using pgvector and Spring AI VectorStore to retrieve speakers based on meaning rather than keyword matching.
+- Built a document indexing pipeline that converts speaker metadata into embeddings for efficient similarity search.
+- Designed modular backend components following clean architecture principles, including Recommendation Engine, Comparison Engine, Semantic Search Service, Prompt Provider, and Embedding Indexer.
+- Developed RESTful APIs with Spring Boot, Spring Data JPA, and PostgreSQL, using DTOs, mappers, and layered service architecture.
+- Leveraged local LLMs through Ollama, enabling fully local inference without dependency on external AI APIs.
 
 ## Tech Stack
 
