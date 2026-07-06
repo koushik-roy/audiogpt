@@ -19,14 +19,17 @@ repositories {
 
 ext {
     set('springAiVersion', "2.0.0-RC2")
+    set('slf4jVersion', "2.0.17")
+    set('postgresqlVersion', "42.7.11")
+    set('springdocVersion', "2.6.0")
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-//    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+    //    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
     implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation("org.slf4j:slf4j-api:2.0.17")
+    implementation("org.slf4j:slf4j-api:${slf4jVersion}")
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
@@ -34,10 +37,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testAnnotationProcessor 'org.projectlombok:lombok'
     // Source: https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation("org.postgresql:postgresql:42.7.11")
+    implementation("org.postgresql:postgresql:${postgresqlVersion}")
     implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
     implementation "org.hibernate.orm:hibernate-vector"
-    implementation "org.springframework.ai:spring-ai-starter-vector-store-pgvector"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
 }
 
 dependencyManagement {

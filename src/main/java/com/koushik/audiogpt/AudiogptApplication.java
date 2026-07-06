@@ -1,6 +1,5 @@
 package com.koushik.audiogpt;
 
-import com.koushik.audiogpt.service.EmbeddingService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
