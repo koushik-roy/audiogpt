@@ -7,4 +7,3 @@ Usage: <usage>
 Room Size: <spaceArea>
 Current Speaker: <currentSpeaker>
 Likes: <likes>
-Dislikes: <dislikes>

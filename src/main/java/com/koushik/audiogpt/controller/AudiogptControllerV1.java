@@ -2,6 +2,7 @@ package com.koushik.audiogpt.controller;
 
 import com.koushik.audiogpt.dto.*;
 import com.koushik.audiogpt.service.*;
+import com.koushik.audiogpt.util.EmbeddingIndexer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -57,7 +58,7 @@ public class AudiogptControllerV1 {
         return ResponseEntity.ok(comparisonEngine.compare(request));
     }
 
-    @PostMapping("/embeddings")
+    @PostMapping("/index")
     @Operation(
             summary = "Index all speakers for semantic search",
             description = "Generate and store embeddings for all speakers to enable semantic search functionality"
@@ -90,6 +91,6 @@ public class AudiogptControllerV1 {
                     required = true
             )
             String query) {
-        return ResponseEntity.ok(semanticSearchService.search(query));
+        return ResponseEntity.ok(semanticSearchService.search(query, 5));
     }
 }

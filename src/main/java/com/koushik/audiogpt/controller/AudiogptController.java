@@ -22,7 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Tag(name = "AudioGPT Speaker API V1", description = "Legacy APIs for speaker recommendations, comparisons, and retrieval")
+@Tag(name = "AudioGPT Speaker API V1", description = "Legacy APIs for speaker recommendations, comparisons, and retrieval using pure LLM")
 public class AudiogptController {
 
     private final ComparisonService comparisonService;

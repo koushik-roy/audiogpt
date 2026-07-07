@@ -1,12 +1,15 @@
 package com.koushik.audiogpt.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public record RecommendationRequest(
-        int budget,
+        @NotNull Integer budget,
         String usage,
         String spaceArea,
         String currentSpeaker,
-        String likes,
-        String dislikes) {
+        Boolean bluetooth,
+        String connectivity,
+        String likes) {
 }
 
 /*
@@ -17,7 +20,6 @@ example Request
         "usage": "music and gaming",
         "roomSize": "small bedroom",
         "currentSpeaker": "JBL Flip 6",
-        "likes": "strong bass",
-        "dislikes": "harsh treble"
+        "likes": "strong bass"
         }
  */

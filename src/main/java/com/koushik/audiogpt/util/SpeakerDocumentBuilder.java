@@ -1,4 +1,4 @@
-package com.koushik.audiogpt.service;
+package com.koushik.audiogpt.util;
 
 import com.koushik.audiogpt.dto.SpeakerDTO;
 import com.koushik.audiogpt.dto.SpeakerDocument;

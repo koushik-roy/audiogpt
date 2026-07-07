@@ -22,12 +22,6 @@ public class EmbeddingService {
                 EmbeddingOptions.builder().build()
         ));
 
-        //        List<Float> embedding = new ArrayList<>(vector.length);
-//
-//        for (float value : vector) {
-//            embedding.add(value);
-//        }
-
         return embeddingResponse.getResults().getFirst().getOutput();
     }
 }

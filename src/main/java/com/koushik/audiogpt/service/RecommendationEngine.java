@@ -1,5 +1,6 @@
 package com.koushik.audiogpt.service;
 
+import com.koushik.audiogpt.constants.AudiogptConstants;
 import com.koushik.audiogpt.dto.*;
 import com.koushik.audiogpt.prompt.PromptProvider;
 import com.koushik.audiogpt.prompt.PromptType;
@@ -21,24 +22,29 @@ public class RecommendationEngine {
     private final SpeakerService speakerService;
     private final ChatClient chatClient;
     private final PromptProvider promptProvider;
+    private final SemanticSearchService semanticSearchService;
+    private final FilterService filterService;
 
     public RecommendationResponse recommend(RecommendationRequest request) {
 
-        List<SpeakerDTO> candidates = speakerService.getSpeakersByBudget(request.budget());
+        // semantic search for retrieving candidate speakers
+        List<SpeakerDTO> semanticResults = semanticSearchService.search(buildSemanticSearchQuery(request), AudiogptConstants.RECOMMENDATION_ENGINE_TOPK);
 
-        log.debug("Found {} candidates for budget {}", candidates.size(), request.budget());
+        log.debug("Results from Semantic search: {}", semanticResults.stream().map(SpeakerDTO::name).toList());
 
-        List<SpeakerRatingDTO> ratings = speakerService.getRatingsForSpeakers(candidates);
+        List<SpeakerDTO> filtered =
+                filterService.filter(semanticResults, request);
+
+        log.debug("Found {} candidates for budget {}", filtered.size(), request.budget());
+
+        List<SpeakerRatingDTO> ratings = speakerService.getRatingsForSpeakers(filtered);
 
         Map<Long, SpeakerRatingDTO> ratingsBySpeakerId = ratings.stream().collect(Collectors.toMap(SpeakerRatingDTO::speakerId, Function.identity()));
 
         log.debug("All ratings for {} candidates", ratingsBySpeakerId.values());
 
-        List<SpeakerDTO> topCandidates = candidates.stream().sorted(Comparator.comparingInt((SpeakerDTO speaker) ->
-                calculateScore(ratingsBySpeakerId.get(speaker.id()), request)).reversed()).limit(5).toList();
-
         List<RankedSpeaker> rankedSpeakers =
-                candidates.stream()
+                filtered.stream()
                         .map(candidate -> {
                             SpeakerRatingDTO rating = ratingsBySpeakerId.get(candidate.id());
 
@@ -52,7 +58,10 @@ public class RecommendationEngine {
                         .limit(2)
                         .toList();
 
-        log.debug("Top candidates: {}", rankedSpeakers);
+        log.debug("Top candidates: {}", rankedSpeakers.stream()
+                .map(RankedSpeaker::speaker)
+                .map(SpeakerDTO::name)
+                .toList());
 
         String rankedSpeakerSummary = formatRankedSpeakers(rankedSpeakers);
 
@@ -137,13 +146,25 @@ public class RecommendationEngine {
     }
 
     private String buildPrompt(RecommendationRequest recommendationRequest, String rankedSpeakers) {
-
         RecommendationPromptV1 prompt = new RecommendationPromptV1(
                 recommendationRequest.currentSpeaker(),
                 recommendationRequest.likes(),
-                recommendationRequest.dislikes(),
                 rankedSpeakers);
 
         return promptProvider.getPrompt(PromptType.RECOMMEND_SPEAKER_3, prompt);
+    }
+
+    private String buildSemanticSearchQuery(RecommendationRequest request) {
+        return """
+                Usage: %s
+                
+                Likes: %s
+                
+                Current speaker: %s
+                """.formatted(
+                request.usage(),
+                request.likes(),
+                request.currentSpeaker()
+        );
     }
 }

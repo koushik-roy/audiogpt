@@ -24,8 +24,7 @@ public class RecommendationService {
                         request.usage(),
                         request.spaceArea(),
                         request.currentSpeaker(),
-                        request.likes(),
-                        request.dislikes()
+                        request.likes()
                 );
 
         String renderedPrompt =

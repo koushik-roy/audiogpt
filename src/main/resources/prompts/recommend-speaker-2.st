@@ -6,7 +6,6 @@ Budget: {budget}
 Usage: {usage}
 Current Speaker: {currentSpeaker}
 Likes: {likes}
-Dislikes: {dislikes}
 
 Available Speakers:
 {availableSpeakers}

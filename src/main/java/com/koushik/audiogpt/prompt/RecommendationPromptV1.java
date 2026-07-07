@@ -8,7 +8,6 @@ import java.util.Map;
 public record RecommendationPromptV1(
         String currentSpeaker,
         String likes,
-        String dislikes,
         String rankedSpeakers
 ) implements PromptModel {
     @Override
@@ -16,7 +15,6 @@ public record RecommendationPromptV1(
         return Map.of(
                 "currentSpeaker", currentSpeaker,
                 "likes", likes,
-                "dislikes", dislikes,
                 "rankedSpeakers", rankedSpeakers
         );
     }

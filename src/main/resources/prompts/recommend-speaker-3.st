@@ -19,9 +19,6 @@ Current Speaker:
 Likes:
 <likes>
 
-Dislikes:
-<dislikes>
-
 Ranked Speakers
 
 <rankedSpeakers>

@@ -7,8 +7,7 @@ public record RecommendationPrompt(
         String usage,
         String spaceArea,
         String currentSpeaker,
-        String likes,
-        String dislikes) implements PromptModel {
+        String likes) implements PromptModel {
     @Override
     public Map<String, Object> variables() {
         return Map.of(
@@ -16,8 +15,7 @@ public record RecommendationPrompt(
                 "usage", usage,
                 "spaceArea", spaceArea,
                 "currentSpeaker", currentSpeaker,
-                "likes", likes,
-                "dislikes", dislikes
+                "likes", likes
         );
     }
 }
