@@ -3,6 +3,7 @@ package com.koushik.audiogpt.util;
 import com.koushik.audiogpt.dto.SpeakerDTO;
 import com.koushik.audiogpt.dto.SpeakerDocument;
 import com.koushik.audiogpt.dto.SpeakerRatingDTO;
+import com.koushik.audiogpt.service.SpeakerDocumentBuilder;
 import com.koushik.audiogpt.service.SpeakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,8 @@ public class EmbeddingIndexer {
     public void indexSpeaker(SpeakerDTO speaker) {
         SpeakerRatingDTO rating = speakerService.getRatingsForSpeaker(speaker);
         SpeakerDocument speakerDocument = documentBuilder.build(speaker, rating);
+
+        log.debug("Document built: {}", speakerDocument);
 
         Map<String, Object> metadata = new HashMap<>();
 

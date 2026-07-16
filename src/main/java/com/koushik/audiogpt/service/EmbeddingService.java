@@ -25,3 +25,9 @@ public class EmbeddingService {
         return embeddingResponse.getResults().getFirst().getOutput();
     }
 }
+
+
+        /*
+        NOT BEING USED CURRENTLY
+        Using Spring AI- PG VECTOR
+         */
