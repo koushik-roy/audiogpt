@@ -1,0 +1,32 @@
+spring:
+  ai:
+    openai:
+      # Do NOT commit API keys to source. Use an environment variable instead.
+#      api-key: ${GROQ_API_KEY:}
+      api-key:
+      base-url: https://api.groq.com/openai/v1
+      chat:
+        model: llama-3.1-8b-instant # Free, blazingly fast open-source model
+      embedding:
+        # Groq currently doesn't host embeddings, but you can point just the base-url/key
+        # for embeddings to GitHub Models or Google AI Studio for free!
+        model: text-embedding-3-small
+
+    vectorstore:
+      pgvector:
+        initialize-schema: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/audiogpt
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+logging:
+  level:
+    root: INFO

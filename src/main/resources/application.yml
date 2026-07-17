@@ -1,0 +1,8 @@
+---
+spring:
+  application:
+    name: audiogpt
+  profiles:
+    # Default active profile; override with SPRING_PROFILES_ACTIVE env var or -Dspring.profiles.active
+    active: local
+
